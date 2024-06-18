@@ -85,4 +85,34 @@ button {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.winner-overlay {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* גובה ורוחב של התמונה */
+    height: 300px; /* גובה ורוחב של התמונה */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: blink 1s infinite;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.winner-overlay.show {
+    display: block;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
 }

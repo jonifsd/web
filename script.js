@@ -16,6 +16,7 @@ const board = document.getElementById('board');
 const winningMessageElement = document.getElementById('winningMessage');
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 const restartButton = document.getElementById('restartButton');
+const winnerOverlayElement = document.getElementById('winnerOverlay');
 let circleTurn;
 let gameOver;
 
@@ -26,6 +27,7 @@ restartButton.addEventListener('click', startGame);
 function startGame() {
     circleTurn = false;
     gameOver = false; // Reset the gameOver flag
+    winnerOverlayElement.classList.remove('show'); // Hide winner overlay
     cellElements.forEach(cell => {
         cell.classList.remove(X_CLASS);
         cell.classList.remove(CIRCLE_CLASS);
@@ -57,8 +59,10 @@ function endGame(draw) {
         winningMessageTextElement.innerText = 'תיקו!';
     } else {
         winningMessageTextElement.innerText = `${circleTurn ? "עיגול" : "איקס"} מנצח!`;
+        showWinnerOverlay(circleTurn ? CIRCLE_CLASS : X_CLASS); // Show winner overlay
     }
     winningMessageElement.classList.add('show');
+    restartButton.addEventListener('click', startGame, { once: true }); // Allow restarting the game only once
 }
 
 function isDraw() {
@@ -91,4 +95,9 @@ function checkWin(currentClass) {
             return cellElements[index].classList.contains(currentClass);
         });
     });
+}
+
+function showWinnerOverlay(winnerClass) {
+    winnerOverlayElement.classList.add('show');
+    winnerOverlayElement.style.backgroundImage = winnerClass === X_CLASS ? "url('x.jpg')" : "url('circle.jpg')";
 }
