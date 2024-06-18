@@ -26,8 +26,8 @@ restartButton.addEventListener('click', startGame);
 
 function startGame() {
     circleTurn = false;
-    gameOver = false; // Reset the gameOver flag
-    winnerOverlayElement.classList.remove('show'); // Hide winner overlay
+    gameOver = false;
+    winnerOverlayElement.classList.remove('show');
     cellElements.forEach(cell => {
         cell.classList.remove(X_CLASS);
         cell.classList.remove(CIRCLE_CLASS);
@@ -39,7 +39,7 @@ function startGame() {
 }
 
 function handleClick(e) {
-    if (gameOver) return; // If the game is over, don't handle the click
+    if (gameOver) return;
     const cell = e.target;
     const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
     placeMark(cell, currentClass);
@@ -54,15 +54,15 @@ function handleClick(e) {
 }
 
 function endGame(draw) {
-    gameOver = true; // Set the gameOver flag to true
+    gameOver = true;
     if (draw) {
         winningMessageTextElement.innerText = 'תיקו!';
     } else {
         winningMessageTextElement.innerText = `${circleTurn ? "עיגול" : "איקס"} מנצח!`;
-        showWinnerOverlay(circleTurn ? CIRCLE_CLASS : X_CLASS); // Show winner overlay
+        showWinnerOverlay(circleTurn ? CIRCLE_CLASS : X_CLASS);
     }
     winningMessageElement.classList.add('show');
-    restartButton.addEventListener('click', startGame, { once: true }); // Allow restarting the game only once
+    restartButton.addEventListener('click', startGame, { once: true });
 }
 
 function isDraw() {
@@ -100,4 +100,26 @@ function checkWin(currentClass) {
 function showWinnerOverlay(winnerClass) {
     winnerOverlayElement.classList.add('show');
     winnerOverlayElement.style.backgroundImage = winnerClass === X_CLASS ? "url('x.jpg')" : "url('circle.jpg')";
+}
+
+// YouTube API integration
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'W5xqaIXYh4g', // Replace with your YouTube video ID
+        events: {
+            'onReady': onPlayerReady
+        },
+        playerVars: {
+            'autoplay': 1,
+            'loop': 1,
+            'playlist': 'W5xqaIXYh4g' // Repeat the video ID for looping
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.playVideo();
 }
