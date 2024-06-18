@@ -17,6 +17,7 @@ const winningMessageElement = document.getElementById('winningMessage');
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 const restartButton = document.getElementById('restartButton');
 let circleTurn;
+let gameOver;
 
 startGame();
 
@@ -24,6 +25,7 @@ restartButton.addEventListener('click', startGame);
 
 function startGame() {
     circleTurn = false;
+    gameOver = false; // Reset the gameOver flag
     cellElements.forEach(cell => {
         cell.classList.remove(X_CLASS);
         cell.classList.remove(CIRCLE_CLASS);
@@ -35,6 +37,7 @@ function startGame() {
 }
 
 function handleClick(e) {
+    if (gameOver) return; // If the game is over, don't handle the click
     const cell = e.target;
     const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
     placeMark(cell, currentClass);
@@ -49,6 +52,7 @@ function handleClick(e) {
 }
 
 function endGame(draw) {
+    gameOver = true; // Set the gameOver flag to true
     if (draw) {
         winningMessageTextElement.innerText = 'תיקו!';
     } else {

@@ -12,6 +12,35 @@ body {
     text-align: center;
 }
 
+.explanation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.explanation-item {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+}
+
+.icon.x {
+    background-image: url('x.jpg');
+}
+
+.icon.circle {
+    background-image: url('circle.jpg');
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -28,18 +57,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
     cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.cell.x::before {
-    content: 'X';
-    color: red;
+.cell.x {
+    background-image: url('x.jpg');
 }
 
-.cell.circle::before {
-    content: 'O';
-    color: blue;
+.cell.circle {
+    background-image: url('circle.jpg');
 }
 
 .winning-message {
